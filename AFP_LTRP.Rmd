@@ -1,0 +1,48 @@
+---
+title: "TOMY_STRATEGY_2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(data.table)
+library(beepr)
+library(lutz)
+library(sf)
+library(lubridate)
+library(oce)
+library(svMisc)
+library(openxlsx)
+library(stringr)
+library(geosphere)
+library(doParallel)
+library(foreach)
+library(rjson)
+library(readr)
+options(warn=-1)
+ptm <- proc.time()
+
+cores_to_use <- 4
+```
+
+```{r}
+#LTRP_Q1_WK44
+
+#SR
+sr_Q1 <- read_tsv("C:\\Users\\crwshan\\Desktop\\2024 Simulation\\SR\\resource_plan.tsv")
+sr_Q1 <- sr_Q1 %>% mutate(CarrierId = 'be00f9ca-5ae4-45fd-9c37-103df5981ce4', DriverType = 'RD1', SCAC = 'TOMY', SupplyContractType = 'TOMY', SuggestedDriverId = sub(".*?_", "TOMY_", SuggestedDriverId))
+sr_Q1 <- sr_Q1 %>% mutate(SuggestedDriverId = gsub('Solo1', 'RD1',SuggestedDriverId))
+sr_Q1
+
+write_tsv(sr_Q1, "C:\\Users\\crwshan\\Desktop\\2024 Simulation\\SR\\resource_plan_sr.tsv", na = "")
+
+#SW
+sw_Q1 <- read_tsv("C:\\Users\\crwshan\\Desktop\\2024 Simulation\\SW\\resource_plan.tsv")
+sw_Q1 <- sw_Q1 %>% mutate(CarrierId = 'be00f9ca-5ae4-45fd-9c37-103df5981ce4', DriverType = 'RD1', SCAC = 'TOMY', SupplyContractType = 'TOMY', SuggestedDriverId = sub(".*?_", "TOMY_", SuggestedDriverId))
+sw_Q1 <- sw_Q1 %>% mutate(SuggestedDriverId = gsub('Solo1', 'RD1',SuggestedDriverId))
+sw_Q1
+
+write_tsv(sw_Q1, "C:\\Users\\crwshan\\Desktop\\2024 Simulation\\SW\\resource_plan_sw.tsv", na = "")
+```
